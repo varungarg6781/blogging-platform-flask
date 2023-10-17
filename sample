@@ -1,0 +1,29 @@
+Create Registration and Login Forms:
+
+Create a Python file (e.g., forms.py) to define your user registration and login forms.
+
+4. Implement Registration and Login Routes:
+
+Create routes for user registration and login within your app.py file. You can place these routes just below the User model definition.
+
+5. Protect Routes with @login_required:
+
+Add @login_required decorators to any routes that require authentication. Place these decorators directly above the route functions in your app.py file.
+
+6. Create Templates for Registration and Login:
+
+In your project's templates directory, create HTML templates for the registration and login forms (e.g., register.html and login.html).
+
+7. Implement a User Loader Function:
+
+Below the code for your routes, define the user loader function. You can place this function in your app.py file.
+
+8. Handle Logout:
+
+Create a logout route in your app.py file to log users out of the application.
+
+9. Use Flask-Login in Templates:
+
+In your HTML templates, you can use Flask-Login to check if a user is logged in and display content accordingly.
+
+By organizing your code in this way, you can keep related functionality (models, forms, routes, templates) in separate files, making your codebase more organized and maintainable.
