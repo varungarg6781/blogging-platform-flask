@@ -23,9 +23,6 @@ jobs:
     steps:
 
     - uses: actions/checkout@v4
-      with:
-        # Checkout pull request head so that a commit can be made
-        ref: ${{ github.event.pull_request.head.ref }}
 
     - name: Checkout code
       uses: actions/checkout@v2
@@ -41,27 +38,24 @@ jobs:
         pip install -r requirements.txt  
         pip install Flask-WTF 
     
-    # Begin install-action snippet
-    #
-    - name: Install AppMap tools
-      id: install-appmap
-      uses: getappmap/install-action@v1
-      with:
-        project-type: pipenv
-        build-patch-file: false
-    - name: Commit changes
-      uses: EndBug/add-and-commit@v9
-      with:
-        add: './REPOADMINS.md'
-        default_author: github_actions
-    #
-    # End install-action snippet
-
     - name: Run tests
       run: |
         python3 tests.py  # Use python3 to run tests
 
-    - name: Archive AppMaps
-      uses: getappmap/archive-action@v1
+    - name: Save AppMaps
+      uses: actions/cache/save@v3
+      if: always()
       with:
-        revision: ${{ github.event.pull_request.base.sha }}
+        path: ./tmp/appmap
+        key: appmaps-${{ github.sha }}-${{ github.run_attempt }}
+
+  appmap-analysis:
+  if: always()
+  needs: [test] # You may need to change this to match
+            # the name of the step that runs your tests.
+  uses: getappmap/analyze-action/.github/workflows/appmap-analysis.yml@v1
+  permissions:
+  actions: read
+  contents: read
+  checks: write
+  pull-requests: write
