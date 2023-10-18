@@ -1,6 +1,7 @@
 import unittest
 from app import app
 
+
 class TestApp(unittest.TestCase):
 
     def setUp(self):
@@ -27,7 +28,8 @@ class TestApp(unittest.TestCase):
             password='password123'
         ), follow_redirects=True)
         self.assertEqual(response.status_code, 200)  # Expect a redirect
-        self.assertIn(b'user1@example.com', response.data)  # Expect the user's email in the response data
+        # Expect the user's email in the response data
+        self.assertIn(b'user1@example.com', response.data)
 
     # Adding some changes for PR to work
     # Adding some more changes for PR to work
@@ -35,8 +37,8 @@ class TestApp(unittest.TestCase):
     def test_user_logout(self):
         response = self.app.get('/logout', follow_redirects=True)
         self.assertEqual(response.status_code, 200)  # Expect a redirect
-        self.assertNotIn(b'user1@example.com', response.data)  # Expect the user's email not to be in the response data
-
+        # Expect the user's email not to be in the response data
+        self.assertNotIn(b'user1@example.com', response.data)
 
     def test_add_blog_post(self):
         with self.app:
@@ -49,10 +51,11 @@ class TestApp(unittest.TestCase):
                 content='This is a new blog post.'
             ))
             self.assertEqual(response.status_code, 302)  # Expect a redirect
-            self.assertEqual(response.location, 'http://localhost/posts')  # Expect redirection to the posts page
+            # Expect redirection to the posts page
+            self.assertEqual(response.location, 'http://localhost/posts')
             # Check if the new post is displayed on the posts page
             self.assertIn(b'New Post', self.app.get('/posts').data)
 
-    
+
 if __name__ == '__main__':
     unittest.main()
