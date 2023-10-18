@@ -50,11 +50,11 @@ jobs:
     
     - name: Commit changes
       run: |
-        git config user.name "YourGitHubUsername"  # Replace with your GitHub username
-        git config user.email "youremail@example.com"  # Replace with your email
+        git config user.name "varungarg6781"  
+        git config user.email "varungarg6781@gmail.com"  
         git add .
-        git commit -m "Commit from GitHub Actions (Python CI with AppMap)"
-        git push origin main  # Replace "main" with your desired branch name
+        git commit -m "ci: Bootstrap initial AppMap archive"
+        git push origin main 
 
     - name: Run tests
       run: |
