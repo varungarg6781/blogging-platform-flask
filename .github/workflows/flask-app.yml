@@ -61,9 +61,6 @@ jobs:
       run: |
         python3 tests.py  # Use python3 to run tests
 
-    - name: Test with pytest
-      run: pipenv run pytest
-
     - name: Archive AppMaps
       uses: getappmap/archive-action@v1
       with:
