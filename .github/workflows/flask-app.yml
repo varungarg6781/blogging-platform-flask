@@ -54,7 +54,7 @@ jobs:
     needs: Run tests
     uses: getappmap/analyze-action/.github/workflows/appmap-analysis.yml@v1
     permissions:
-    actions: read
-    contents: read
-    checks: write
-    pull-requests: write
+      actions: read
+      contents: read
+      checks: write
+      pull-requests: write
