@@ -50,11 +50,11 @@ jobs:
         key: appmaps-${{ github.sha }}-${{ github.run_attempt }}
 
   appmap-analysis:
-  if: always()
-  needs: Run tests
-  uses: getappmap/analyze-action/.github/workflows/appmap-analysis.yml@v1
-  permissions:
-  actions: read
-  contents: read
-  checks: write
-  pull-requests: write
+    if: always()
+    needs: Run tests
+    uses: getappmap/analyze-action/.github/workflows/appmap-analysis.yml@v1
+    permissions:
+    actions: read
+    contents: read
+    checks: write
+    pull-requests: write
