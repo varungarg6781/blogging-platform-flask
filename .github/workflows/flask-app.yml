@@ -42,19 +42,3 @@ jobs:
       run: |
         python3 tests.py  # Use python3 to run tests
 
-    - name: Save AppMaps
-      uses: actions/cache/save@v3
-      if: always()
-      with:
-        path: ./tmp/appmap
-        key: appmaps-${{ github.sha }}-${{ github.run_attempt }}
-
-  appmap-analysis:
-  if: always()
-  needs: Run tests
-  uses: getappmap/analyze-action/.github/workflows/appmap-analysis.yml@v1
-  permissions:
-  actions: read
-  contents: read
-  checks: write
-  pull-requests: write

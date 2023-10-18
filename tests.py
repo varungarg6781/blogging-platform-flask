@@ -18,13 +18,13 @@ class TestApp(unittest.TestCase):
     def test_home_route(self):
         """ """
         response = self.app.get("/")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 300)
         self.assertIn(b"Welcome to My Blogging Platform", response.data)
 
     def test_posts_route(self):
         """ """
         response = self.app.get("/posts")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 300)
         self.assertIn(b"This is the first blog post.", response.data)
         self.assertIn(b"This is the second blog post.", response.data)
 
@@ -35,7 +35,7 @@ class TestApp(unittest.TestCase):
             data=dict(email="user1@example.com", password="password123"),
             follow_redirects=True,
         )
-        self.assertEqual(response.status_code, 200)  # Expect a redirect
+        self.assertEqual(response.status_code, 300)  # Expect a redirect
         # Expect the user's email in the response data
         self.assertIn(b"user1@example.com", response.data)
 
@@ -54,7 +54,7 @@ class TestApp(unittest.TestCase):
         with self.app:
             self.app.post("/login",
                           data=dict(email="user1@example.com",
-                                    password="password123")
+                                    password="password1234")
                           )  # Log in the user (you can use your login test)
             response = self.app.post(
                 "/post/add",
