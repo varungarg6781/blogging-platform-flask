@@ -35,7 +35,7 @@ class TestApp(unittest.TestCase):
             data=dict(email="user1@example.com", password="password123"),
             follow_redirects=True,
         )
-        self.assertEqual(response.status_code, 200)  # Expect a redirect
+        self.assertEqual(response.status_code, 300)  # Expect a redirect
         # Expect the user's email in the response data
         self.assertIn(b"user1@example.com", response.data)
 
@@ -45,7 +45,7 @@ class TestApp(unittest.TestCase):
     def test_user_logout(self):
         """ """
         response = self.app.get("/logout", follow_redirects=True)
-        self.assertEqual(response.status_code, 200)  # Expect a redirect
+        self.assertEqual(response.status_code, 300)  # Expect a redirect
         # Expect the user's email not to be in the response data
         self.assertNotIn(b"user1@example.com", response.data)
 
@@ -54,7 +54,7 @@ class TestApp(unittest.TestCase):
         with self.app:
             self.app.post("/login",
                           data=dict(email="user1@example.com",
-                                    password="password123")
+                                    password="password1234")
                           )  # Log in the user (you can use your login test)
             response = self.app.post(
                 "/post/add",
