@@ -2,3 +2,5 @@ Flask==2.0.2
 Flask-Login==0.4.1
 Werkzeug==2.0.2
 WTForms==3.0.1
+Flask-WTF==0.15.1  # Use a compatible version
+email-validator==1.2.1
