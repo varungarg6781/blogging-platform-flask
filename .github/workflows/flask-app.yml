@@ -51,8 +51,7 @@ jobs:
 
   appmap-analysis:
   if: always()
-  needs: [test] # You may need to change this to match
-            # the name of the step that runs your tests.
+  needs: Run tests
   uses: getappmap/analyze-action/.github/workflows/appmap-analysis.yml@v1
   permissions:
   actions: read
