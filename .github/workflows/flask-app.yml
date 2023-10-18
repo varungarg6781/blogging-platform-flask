@@ -1,10 +1,12 @@
-name: Python CI
+name: Python CI with AppMap
 
 on:
   push:
     branches:
       - main
   pull_request:
+    branches:
+      - main
 
 jobs:
   build:
@@ -25,6 +27,16 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt  
         pip install Flask-WTF 
+
+    - name: Install AppMap tools
+      id: install-appmap
+      uses: getappmap/install-action@v1
+      with:
+        project-type: pipenv
+        build-patch-file: false
+
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v9
 
     - name: Run tests
       run: |
