@@ -49,7 +49,12 @@ jobs:
         build-patch-file: false
     
     - name: Commit changes
-      uses: EndBug/add-and-commit@v9
+      run: |
+        git config user.name "YourGitHubUsername"  # Replace with your GitHub username
+        git config user.email "youremail@example.com"  # Replace with your email
+        git add .
+        git commit -m "Commit from GitHub Actions (Python CI with AppMap)"
+        git push origin main  # Replace "main" with your desired branch name
 
     - name: Run tests
       run: |
