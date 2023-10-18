@@ -16,6 +16,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -36,7 +38,12 @@ jobs:
         build-patch-file: false
 
     - name: Commit changes
-      uses: EndBug/add-and-commit@v9
+      run: |
+        git config user.name "Your Name"
+        git config user.email "youremail@example.com"
+        git add .
+        git commit -m "Commit from GitHub Actions (Python CI with AppMap)"
+        git push origin main  # Replace "main" with your desired branch name
 
     - name: Run tests
       run: |
