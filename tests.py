@@ -29,6 +29,8 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 200)  # Expect a redirect
         self.assertIn(b'user1@example.com', response.data)  # Expect the user's email in the response data
 
+    # Adding some changes for PR to work
+    # Adding some more changes for PR to work
 
     def test_user_logout(self):
         response = self.app.get('/logout', follow_redirects=True)
