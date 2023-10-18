@@ -1,24 +1,38 @@
-name: Python CI
+name: Python CI with AppMap
 
 on:
   push:
     branches:
       - main
   pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * 0'
+
+permissions:
+  actions: read
+  contents: write
+  checks: write
+  pull-requests: write
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
 
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: 3.x  # Use the desired Python 3.x version
+    
+    - name: Install pipenv
+      run: pip install pipenv
 
     - name: Install dependencies
       run: |
@@ -26,6 +40,26 @@ jobs:
         pip install -r requirements.txt  
         pip install Flask-WTF 
 
+    - name: Install AppMap tools
+      id: install-appmap
+      uses: getappmap/install-action@v1
+      with:
+        project-type: pipenv
+        build-patch-file: false
+
     - name: Run tests
       run: |
         python3 tests.py  # Use python3 to run tests
+
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v9
+      with:
+        ref: main
+
+    - name: Test with pytest
+      run: pipenv run pytest
+
+    - name: Archive AppMaps
+      uses: getappmap/archive-action@v1
+      with:
+        revision: ${{ github.event.pull_request.base.sha }}
