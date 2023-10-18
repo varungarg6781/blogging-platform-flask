@@ -1,4 +1,5 @@
 class User(UserMixin):
+    """ """
     def __init__(self, id, username, email, password):
         self.id = id
         self.username = username
