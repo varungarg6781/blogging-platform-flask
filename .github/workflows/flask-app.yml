@@ -63,10 +63,16 @@ jobs:
   appmap-analysis:
     if: always()
     needs: [test] 
-    uses: getappmap/analyze-action/.github/workflows/flask-app.yml@v1
     permissions:
       actions: read
       contents: read
       checks: write
       pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run AppMap Analysis
+      uses: getappmap/analyze-action@v1
+      with:
+    
 
