@@ -26,6 +26,7 @@ jobs:
         pip install -r requirements.txt  
         pip install Flask-WTF 
 
+
     - name: Run tests
       run: |
         python3 tests.py  # Use python3 to run tests
