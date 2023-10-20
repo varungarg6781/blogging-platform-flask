@@ -17,16 +17,9 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-
     - uses: actions/checkout@v4
-      with:
-        # Checkout pull request head so that a commit can be made
-        ref: ${{ github.event.pull_request.head.ref }}
-
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -38,26 +31,42 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt  
         pip install Flask-WTF 
-    
-    # Begin install-action snippet
-    - name: Install AppMap tools
-      id: install-appmap
-      uses: getappmap/install-action@v1
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
-        project-type: pipenv
-        build-patch-file: false
-    - name: Commit changes
-      uses: EndBug/add-and-commit@v9
-      with:
-        add: './REPOADMINS.md'
-        default_author: github_actions
-    # End install-action snippet
+        python-version: 3.x  # Use the desired Python 3.x version
+
+    - name: Install dependencies (for tests, if needed)
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        # You can also add any additional dependencies required for testing here
 
     - name: Run tests
       run: |
         python3 tests.py  # Use python3 to run tests
 
-    - name: Archive AppMaps
-      uses: getappmap/archive-action@v1
-      with:
-        revision: ${{ github.event.pull_request.base.sha }}
+    - name: Save AppMaps
+        uses: actions/cache/save@v3
+        if: always()
+        with:
+          path: ./tmp/appmap
+          key: appmaps-${{ github.sha }}-${{ github.run_attempt }}
+
+  appmap-analysis:
+    if: always()
+    needs: [test] 
+    uses: getappmap/analyze-action/.github/workflows/appmap-analysis.yml@v1
+    permissions:
+      actions: read
+      contents: read
+      checks: write
+      pull-requests: write
+
