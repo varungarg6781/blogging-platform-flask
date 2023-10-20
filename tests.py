@@ -18,13 +18,13 @@ class TestApp(unittest.TestCase):
     def test_home_route(self):
         """ """
         response = self.app.get("/")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 300)
         self.assertIn(b"Welcome to My Blogging Platform", response.data)
 
     def test_posts_route(self):
         """ """
         response = self.app.get("/posts")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 300)
         self.assertIn(b"This is the first blog post.", response.data)
         self.assertIn(b"This is the second blog post.", response.data)
 
@@ -61,7 +61,7 @@ class TestApp(unittest.TestCase):
                 data=dict(title="New Post",
                           content="This is a new blog post."),
             )
-            self.assertEqual(response.status_code, 302)  # Expect a redirect
+            self.assertEqual(response.status_code, 301)  # Expect a redirect
             # Expect redirection to the posts page
             self.assertEqual(response.location, "http://localhost/posts")
             # Check if the new post is displayed on the posts page
