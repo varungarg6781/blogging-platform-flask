@@ -40,7 +40,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-          ref: main
+        ref: main
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -75,6 +75,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+      with:
+        ref: main
     - name: Run AppMap Analysis
       uses: getappmap/analyze-action@v1
     
