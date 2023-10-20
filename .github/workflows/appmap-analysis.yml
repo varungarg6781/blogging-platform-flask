@@ -1,4 +1,4 @@
-name: Python CI
+name: appmap-analysis
 
 on:
   push:
