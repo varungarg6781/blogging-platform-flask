@@ -6,6 +6,10 @@ on:
       - main
   pull_request:
 
+  # Run weekly, so that the baseline AppMap artifact does not expire.
+  schedule:
+    - cron: '0 0 * * 0'
+
 jobs:
   build:
 
