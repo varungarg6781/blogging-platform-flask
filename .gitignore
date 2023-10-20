@@ -1,0 +1,6 @@
+
+# AppMap artifacts
+/.appmap
+
+# Node modules
+/node_modules
