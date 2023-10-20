@@ -73,6 +73,5 @@ jobs:
     - uses: actions/checkout@v4
     - name: Run AppMap Analysis
       uses: getappmap/analyze-action@v1
-      with:
     
 
