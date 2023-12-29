@@ -58,9 +58,8 @@ def post_list():
 @app.route('/post/<int:post_id>')
 def view_post(post_id):
     # Find the post with the given post_id from the dummy data
-    post = next((post for post in blog_posts if post['id'] == post_id), None)
     
-    if post:
+    if post := next((post for post in blog_posts if post['id'] == post_id), None):
         return render_template('view_post.html', post=post)
     else:
         return "Post not found", 404
