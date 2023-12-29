@@ -39,7 +39,6 @@ class TestApp(unittest.TestCase):
         # Expect the user's email in the response data
         self.assertIn(b"user1@example.com", response.data)
 
-
     def test_user_logout(self):
         """ """
         response = self.app.get("/logout", follow_redirects=True)
