@@ -39,8 +39,6 @@ class TestApp(unittest.TestCase):
         # Expect the user's email in the response data
         self.assertIn(b"user1@example.com", response.data)
 
-    # Adding some changes for PR to work
-    # Adding some more changes for PR to work
 
     def test_user_logout(self):
         """ """
