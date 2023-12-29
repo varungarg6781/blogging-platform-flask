@@ -49,14 +49,12 @@ class TestApp(unittest.TestCase):
     def test_add_blog_post(self):
         """ """
         with self.app:
-            self.app.post("/login",
-                          data=dict(email="user1@example.com",
-                                    password="password123")
-                          )  # Log in the user (you can use your login test)
+            self.app.post(
+                "/login", data=dict(email="user1@example.com", password="password123")
+            )  # Log in the user (you can use your login test)
             response = self.app.post(
                 "/post/add",
-                data=dict(title="New Post",
-                          content="This is a new blog post."),
+                data=dict(title="New Post", content="This is a new blog post."),
             )
             self.assertEqual(response.status_code, 302)  # Expect a redirect
             # Expect redirection to the posts page
